@@ -1,0 +1,14 @@
+{
+  "name": "bolao-do-bebe-iarsom-gpt",
+  "version": "1.0.0",
+  "description": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "test command"
+  },
+  "author": "Tainan Camargo and Iarsom",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.0.1"
+  }
+}
