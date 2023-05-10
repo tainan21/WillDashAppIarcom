@@ -26,11 +26,13 @@ export function Find() {
     try {
       setLoading(true);
       await api.post('/pools/join', { code });
+      navigate('pools');
       return toast.show({
         title: 'Você entrou no bolão com sucesso!',
         placement: 'top',
         bgColor: 'green.500',
       });
+
       navigate('pools');
     } catch (error) {
       console.log(error);
@@ -58,6 +60,7 @@ export function Find() {
       }
     }
   }
+  
 
   return (
     <VStack flex={1} bgColor='gray.900'>

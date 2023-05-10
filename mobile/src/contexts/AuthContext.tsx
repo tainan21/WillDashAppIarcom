@@ -8,7 +8,9 @@ WebBrowser.maybeCompleteAuthSession();
 
 interface UserProps {
     name: string;
+    email: string;
     avatarUrl: string;
+    googleId: string;
 }
 
 interface AuthProviderProps {
@@ -16,7 +18,7 @@ interface AuthProviderProps {
 }
 
 export interface AuthContextDataProps {
-    user: UserProps;
+    user: UserProps; 
     isUserLoading: boolean;
     signIn: () => Promise<void>;
 }
@@ -71,28 +73,28 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
           setIsUserLoading(false);
         }
       }
-      /*
-    async function signInWithGoogle(access_token: string) {
-        try {
-            setIsUserLoading(true);
-
-            const tokenResponse = await api.post("/users", { access_token });
-
-            api.defaults.headers.common[
-                "Authorization"
-            ] = `Bearer ${tokenResponse.data.token}`;
-
-            const userInfoResponse = await api.get("/me");
-
-            setUser(userInfoResponse.data.user);
-        } catch (error) {
-            console.log(error);
-            throw error;
-        } finally {
-            setIsUserLoading(false);
-        }
-    }
-*/
+      
+      // async function signInWithGoogle(access_token: string) {
+      //     try {
+      //         setIsUserLoading(true);
+      
+      //         const tokenResponse = await api.post("/users", { access_token });
+      
+      //         api.defaults.headers.common[
+      //             "Authorization"
+      //         ] = `Bearer ${tokenResponse.data.token}`;
+      
+      //         const userInfoResponse = await api.get("/me");
+      
+      //         setUser(userInfoResponse.data.user);
+      //     } catch (error) {
+      //         console.log(error);
+      //         throw error;
+      //     } finally {
+      //         setIsUserLoading(false);
+      //     }
+      // }
+      
     useEffect(() => {
         if (response?.type === "success" && response.authentication?.accessToken) {
             signInWithGoogle(response.authentication.accessToken);

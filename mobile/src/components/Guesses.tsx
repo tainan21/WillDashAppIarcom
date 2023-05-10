@@ -1,94 +1,31 @@
-import { useState, useEffect } from 'react';
-import { FlatList, useToast } from 'native-base';
+import axios from "axios";
 
-import { api } from '../services/api';
-import { Game, GameProps } from './Game';
-import { Loading } from './Loading';
-import { EmptyMyPoolList } from './EmptyMyPoolList';
+const api = axios.create({
+  baseURL: process.env.API_URL || "http://localhost:3333"
+});
 
-interface Props {
-  poolId: string;
-  code: string;
-  onShare: () => Promise<void>;
-}
-
-export function Guesses({ poolId, code, onShare }: Props) {
-  const [games, setGames] = useState<GameProps[]>([]);
-  const [firstTeamPoints, setFirstTeamPoints] = useState('');
-  const [secondTeamPoints, setSecondTeamPoints] = useState('');
-  const [loading, setLoading] = useState(true);
-
-  const toast = useToast();
-
-  async function fetchGames() {
-    try {
-      setLoading(true);
-      const response = await api.get(`/pools/${poolId}/games`);
-      setGames(response.data.games);
-    } catch (error) {
-      console.log(error);
-      toast.show({
-        title: 'Não foi possível carregar os palpites do bolão!',
-        placement: 'top',
-        bgColor: 'red.500',
-      });
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function handleGuessConfirm(gameId: string) {
-    try {
-      if (!firstTeamPoints.trim() || !secondTeamPoints.trim()) {
-        return toast.show({
-          title: 'Informe o placar do palpite!',
-          placement: 'top',
-          bgColor: 'red.500',
-        });
+// Adiciona um interceptor para tratar erros de requisição
+api.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response) {
+      // Erro de requisição (HTTP status code diferente de 2xx)
+      if (error.response.status === 401) {
+        // Erro de autenticação, redireciona para a tela de login
+        // window.location.replace("/login")
+      } else {
+        // Outros erros de requisição
+        console.error("Erro de requisição:", error.response.data);
       }
-      await api.post(`/pools/${poolId}/games/${gameId}/guesses`, {
-        firstTeamPoints: Number(firstTeamPoints),
-        secondTeamPoints: Number(secondTeamPoints),
-      });
-      toast.show({
-        title: 'Palpite criado com sucesso!',
-        placement: 'top',
-        bgColor: 'green.500',
-      });
-      fetchGames();
-    } catch (error) {
-      console.log(error);
-      toast.show({
-        title: 'Não foi possível criar o palpite!',
-        placement: 'top',
-        bgColor: 'red.500',
-      });
+    } else if (error.request) {
+      // Erro de rede (sem resposta do servidor)
+      console.error("Erro de rede:", error.request);
+    } else {
+      // Outros erros
+      console.error("Erro:", error.message);
     }
+    return Promise.reject(error);
   }
+);
 
-  useEffect(() => {
-    fetchGames();
-  }, [poolId]);
-
-  if (loading) {
-    return <Loading />;
-  }
-
-  return (
-    <FlatList
-      data={games}
-      keyExtractor={(item) => item.id}
-      renderItem={({ item }) => (
-        <Game
-          data={item}
-          setFirstTeamPoints={setFirstTeamPoints}
-          setSecondTeamPoints={setSecondTeamPoints}
-          onGuessConfirm={() => handleGuessConfirm(item.id)}
-        />
-      )}
-      ListEmptyComponent={() => (
-        <EmptyMyPoolList code={code} onShare={onShare} />
-      )}
-    />
-  );
-}
+export { api };

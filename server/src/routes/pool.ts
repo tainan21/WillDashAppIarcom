@@ -28,7 +28,6 @@ export async function poolRoutes(fastify: FastifyInstance) {
                     title,
                     code,
                     ownerId: request.user.sub,
-
                     participants: {
                         create: {
                             userId: request.user.sub,

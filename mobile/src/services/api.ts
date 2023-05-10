@@ -1,11 +1,31 @@
 import axios from "axios";
 
-export const api = axios.create({
-    //baseURL: "http://192.168.0.113:19000",
-    //baseURL: "http://0.0.0.0:3333",
-    //baseURL: "http://192.168.1.18:2222",
-    baseURL: "http://localhost:3333",
-    //baseURL: "http://localhost:5555/",
+const api = axios.create({
+  baseURL: process.env.API_URL || "http://192.168.0.119:3333"
 });
 
-api.defaults.baseURL = "http://localhost:3333";
+// Adiciona um interceptor para tratar erros de requisição
+api.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response) {
+      // Erro de requisição (HTTP status code diferente de 2xx)
+      if (error.response.status === 401) {
+        // Erro de autenticação, redireciona para a tela de login
+        // window.location.replace("/login")
+      } else {
+        // Outros erros de requisição
+        console.error("Erro de requisição:", error.response.data);
+      }
+    } else if (error.request) {
+      // Erro de rede (sem resposta do servidor)
+      console.error("Erro de rede:", error.request);
+    } else {
+      // Outros erros
+      console.error("Erro:", error.message);
+    }
+    return Promise.reject(error);
+  }
+);
+
+export { api };

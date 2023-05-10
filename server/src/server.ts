@@ -10,17 +10,14 @@ import { userRoutes } from "./routes/user";
 
 async function bootstrap() {
     const fastify = Fastify({
-        logger: true, //Serve para o Fastify soltar os logs de tudo que vai acontecendo na Operação
+        logger: true,
     });
 
-    // Habilitando o @fastify/cors. origen: true estamos deixando qualquer um acessar nossos dados, use isso somente
-    //  em ambiente dev. Em prod é so adicionar os domínios, ex: origin: "livioalvarenga.com"
     await fastify.register(cors, {
         origin: true,
     });
 
-    // em produção isso precisa ser uma variável de ambiente!!!
-    await fastify.register(jwt, { secret: "nlwcopa" });
+    await fastify.register(jwt, { secret: "willdash" });
 
     await fastify.register(poolRoutes);
     await fastify.register(authRoutes);
@@ -28,7 +25,15 @@ async function bootstrap() {
     await fastify.register(guessRoutes);
     await fastify.register(userRoutes);
 
-    // add host: "0.0.0.0" para funcionar no android
+    // Adicione um hook global para lidar com solicitações OPTIONS
+    fastify.addHook("onRequest", (req, res, done) => {
+        if (req.method === "OPTIONS") {
+            res.status(204).send();
+        } else {
+            done();
+        }
+    });
+
     await fastify.listen({ port: 3333, host: "0.0.0.0" });
 }
 
