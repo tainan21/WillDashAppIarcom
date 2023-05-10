@@ -45,7 +45,33 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
             setIsUserLoading(false);
         }
     }
-
+    
+    async function signInWithGoogle(access_token: string) {
+        try {
+          setIsUserLoading(true);
+      
+          const tokenResponse = await api.post("/users", { access_token });
+      
+          api.defaults.headers.common[
+            "Authorization"
+          ] = `Bearer ${tokenResponse.data.token}`;
+      
+          const userInfoResponse = await api.get("/me");
+      
+          setUser(userInfoResponse.data.user);
+      
+          console.log("Dados do usuário = ", userInfoResponse.data.user);
+          console.log("Dados do token = ", tokenResponse.data.token);
+      
+          return userInfoResponse.data.user;
+        } catch (error) {
+          console.log(error);
+          throw error;
+        } finally {
+          setIsUserLoading(false);
+        }
+      }
+      /*
     async function signInWithGoogle(access_token: string) {
         try {
             setIsUserLoading(true);
@@ -66,10 +92,12 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
             setIsUserLoading(false);
         }
     }
-
+*/
     useEffect(() => {
         if (response?.type === "success" && response.authentication?.accessToken) {
             signInWithGoogle(response.authentication.accessToken);
+            console.log("Dados do usuário = ", user);
+            console.log("Dados do token= ", response.authentication.accessToken);
         }
     }, [response]);
 
