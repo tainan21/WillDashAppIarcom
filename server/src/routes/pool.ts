@@ -73,12 +73,12 @@ export async function poolRoutes(fastify: FastifyInstance) {
             });
             if (!pool) {
                 return reply.status(400).send({
-                    message: "Bolão não encontrado",
+                    message: "WillDash não encontrado",
                 });
             }
             if (pool.participants.length > 0) {
                 return reply.status(400).send({
-                    message: "Você já está nesse bolão",
+                    message: "Você já está nesse WillDash",
                 });
             }
 

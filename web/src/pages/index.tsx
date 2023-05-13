@@ -50,7 +50,7 @@ export default function Home(props: HomeProps) {
             <main>
                 <Image src={logo} alt="logo amarelo da NLW Copa" />
                 <h1 className="mt-14 text-white font-bold text-5xl leading-tight">
-                    Crie seu próprio bolão da copa e compartilhe entre amigos!
+                    Área de insersão do App, crie novos treinos, acompanhe os ganhos, os novos usuários!
                 </h1>
                 <div className="mt-10 flex items-center gap-2 ">
                     <Image
@@ -75,7 +75,7 @@ export default function Home(props: HomeProps) {
                         className="bg-yellow-500 px-6 py-4 rounded text-gray-900 font-bold text-sm uppercase hover:bg-yellow-700 duration-300 ease-in-out"
                         type="submit"
                     >
-                        Criar meu bolão
+                        Criar Exercicio
                     </button>
                 </form>
                 <p className="text-gray-300 text-sm mt-4 leading-relaxed">
@@ -87,7 +87,7 @@ export default function Home(props: HomeProps) {
                         <Image src={iconCheck} alt="" />
                         <div className="flex flex-col">
                             <span className="font-bold text-2xl">+{props.poolCount}</span>
-                            <span>Bolões criados</span>
+                            <span>Exercicios criados</span>
                         </div>
                     </div>
                     <div className="w-px h-14 bg-gray-600"></div>
@@ -97,7 +97,7 @@ export default function Home(props: HomeProps) {
                             <span className="font-bold text-2xl">
                                 +{props.guessCount}
                             </span>
-                            <span>Palpites enviados</span>
+                            <span>Acesso de usuários</span>
                         </div>
                     </div>
                 </div>

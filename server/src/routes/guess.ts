@@ -41,7 +41,7 @@ export async function guessRoutes(fastify: FastifyInstance) {
 
             if (!participant) {
                 return reply.status(400).send({
-                    message: "Você não pode dar um palpite nesse bolão",
+                    message: "Você não pode dar um palpite nesse WillDash",
                 });
             }
 
