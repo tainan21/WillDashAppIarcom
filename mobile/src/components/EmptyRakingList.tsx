@@ -8,3 +8,5 @@ export function EmptyRakingList() {
     </Text>
   );
 }
+
+
