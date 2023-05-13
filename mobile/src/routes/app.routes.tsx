@@ -1,11 +1,12 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from 'native-base';
-import { PlusCircle, SoccerBall } from 'phosphor-react-native';
+import { PlusCircle, SoccerBall, Barcode, Wallet, House } from 'phosphor-react-native';
 import { Platform } from 'react-native';
 import { Details } from '../screens/Details';
 
 import { Find } from '../screens/Find';
 
+import { Money } from '../screens/Money';
 import { New } from '../screens/New';
 import { Pools } from '../screens/Pools';
 
@@ -34,20 +35,37 @@ export function AppRoutes() {
         tabBarLabelPosition: 'beside-icon',
       }}
     >
+ 
       <Screen
-        name='new'
+        name='exercicios'
         component={New}
         options={{
-          tabBarIcon: ({ color }) => <PlusCircle color={color} size={size} />,
-          tabBarLabel: 'Novo bolão',
+          tabBarIcon: ({ color }) => <House weight="thin" color={color} size={size} />,
+          tabBarLabel: '',
         }}
       />
       <Screen
-        name='pools'
+        name='camera'
         component={Pools}
         options={{
-          tabBarIcon: ({ color }) => <SoccerBall color={color} size={size} />,
-          tabBarLabel: 'Meus bolões',
+          tabBarIcon: ({ color }) => <Wallet  color={color} size={size} />,
+          tabBarLabel: '',
+        }}
+      />
+      <Screen
+        name='qr'
+        component={Pools}
+        options={{
+          tabBarIcon: ({ color }) => <Barcode  color={color} size={size} />,
+          tabBarLabel: '',
+        }}
+      />
+      <Screen
+        name='Money'
+        component={Money}
+        options={{
+          tabBarIcon: ({ color }) => <Barcode  color={color} size={size} />,
+          tabBarLabel: '',
         }}
       />
       <Screen

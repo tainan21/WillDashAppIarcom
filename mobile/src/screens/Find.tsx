@@ -18,7 +18,7 @@ export function Find() {
   async function handleJoinPool() {
     if (!code.trim()) {
       return toast.show({
-        title: 'Informe o código do bolão!',
+        title: 'Informe o código do WILLDASH!',
         placement: 'top',
         bgColor: 'red.500',
       });
@@ -28,7 +28,7 @@ export function Find() {
       await api.post('/pools/join', { code });
       navigate('pools');
       return toast.show({
-        title: 'Você entrou no bolão com sucesso!',
+        title: 'Você entrou no WILLDASH com sucesso!',
         placement: 'top',
         bgColor: 'green.500',
       });
@@ -43,7 +43,7 @@ export function Find() {
       ) {
         return toast.show({
           title:
-            'Não foi possível encontrar o bolão! Verifique o código novamente.',
+            'Não foi possível encontrar o WILLDASH! Verifique o código novamente.',
           placement: 'top',
           bgColor: 'red.500',
         });
@@ -53,7 +53,7 @@ export function Find() {
         error.response?.data.message === "You've already joined this pool!"
       ) {
         return toast.show({
-          title: 'Você já está cadastrado nesse bolão!',
+          title: 'Você já está cadastrado nesse WillDash!',
           placement: 'top',
           bgColor: 'red.500',
         });
@@ -73,17 +73,17 @@ export function Find() {
           mb={8}
           textAlign='center'
         >
-          Encontre um bolão através de seu código único
+          Encontre um WillDash através de seu código único
         </Heading>
         <Input
           mb={2}
-          placeholder='Qual o código do bolão?'
+          placeholder='Qual o código do WILLDASH?'
           value={code}
           onChangeText={setCode}
           autoCapitalize='characters'
         />
         <Button
-          title='Buscar bolão'
+          title='Buscar WillDash'
           isLoading={loading}
           onPress={handleJoinPool}
         />

@@ -34,7 +34,7 @@ export function Details() {
     } catch (error) {
       console.log(error);
       toast.show({
-        title: 'Não foi possível carregar os detalhes do bolão.',
+        title: 'Não foi possível carregar os detalhes do WILLDASH.',
         placement: 'top',
         bgColor: 'red.500',
       });

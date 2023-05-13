@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { FlatList, Icon, useToast, VStack } from 'native-base';
 import { Octicons } from '@expo/vector-icons';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
@@ -17,7 +17,7 @@ export function Pools() {
   const { navigate } = useNavigation();
   const toast = useToast();
 
-  async function fetchPools() {
+  const fetchPools = useCallback(async () => {
     try {
       setLoading(true);
       const response = await api.get('/pools');
@@ -32,13 +32,9 @@ export function Pools() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [toast]);
 
-  useFocusEffect(
-    useCallback(() => {
-      fetchPools();
-    }, [])
-  );
+  useFocusEffect(fetchPools);
 
   return (
     <VStack flex={1} bgColor='gray.900'>
@@ -52,7 +48,7 @@ export function Pools() {
         mb={4}
       >
         <Button
-          title='Buscar WillDash por código'
+          title='Buscar bolão por código'
           leftIcon={
             <Icon as={Octicons} name='search' color='black' size='md' />
           }

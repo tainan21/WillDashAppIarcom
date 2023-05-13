@@ -9,7 +9,7 @@ export function EmptyMyPoolList({ code, onShare }: Props) {
   return (
     <Row flexWrap='wrap' justifyContent='center' p={4}>
       <Text color='gray.200' fontSize='sm'>
-        Esse bolão ainda não tem participantes, que tal
+        Esse WILLDASH ainda não tem participantes, que tal
       </Text>
 
       <Pressable onPress={onShare}>
@@ -23,7 +23,7 @@ export function EmptyMyPoolList({ code, onShare }: Props) {
       </Pressable>
 
       <Text color='gray.200' fontSize='sm' mx={1}>
-        do bolão com alguém?
+        do WILLDASH com alguém?
       </Text>
 
       <Text color='gray.200' mr={1}>

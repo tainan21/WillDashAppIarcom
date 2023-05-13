@@ -15,7 +15,7 @@ export function New() {
   async function handlePoolCreate() {
     if (!title.trim()) {
       return toast.show({
-        title: 'Informe um nome para o seu bolão!',
+        title: 'Informe um nome para o seu WillDash!',
         placement: 'top',
         bgColor: 'red.500',
       });
@@ -24,14 +24,14 @@ export function New() {
       setIsLoading(true);
       await api.post('/pools', { title });
       toast.show({
-        title: 'Bolão criado com sucesso!',
+        title: 'WillDash criado com sucesso!',
         placement: 'top',
         bgColor: 'green.500',
       });
     } catch (error) {
       console.log(error);
       toast.show({
-        title: 'Não foi possível criar um bolão!',
+        title: 'Não foi possível criar um WillDash!',
         placement: 'top',
         bgColor: 'red.500',
       });
@@ -43,7 +43,7 @@ export function New() {
 
   return (
     <VStack flex={1} bgColor='gray.900'>
-      <Header title='Criar novo bolão' />
+      <Header title='Olá'  />
       <VStack mt={8} mx={5} alignItems='center'>
         <Logo />
         <Heading
@@ -53,21 +53,21 @@ export function New() {
           my={8}
           textAlign='center'
         >
-          Crie seu próprio bolão da copa e compartilhe entre amigos!
+          Crie seu próprio WillDash da copa e compartilhe entre amigos!
         </Heading>
         <Input
           mb={2}
-          placeholder='Qual nome do seu bolão?'
+          placeholder='Qual nome do seu WillDash?'
           onChangeText={setTitle}
           value={title}
         />
         <Button
-          title='Criar meu bolão'
+          title='Criar meu WillDash'
           onPress={handlePoolCreate}
           isLoading={isLoading}
         />
         <Text color='gray.200' fontSize='sm' textAlign='center' px={10} mt={4}>
-          Após criar seu bolão, você receberá um código único que poderá usar
+          Após criar seu WillDash, você receberá um código único que poderá usar
           para convidar outras pessoas.
         </Text>
       </VStack>
